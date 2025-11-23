@@ -1,78 +1,115 @@
-version: "3.9"
+version: '3.8'
 
 services:
-
-  mysql:
-    image: mysql:8.0
-    container_name: mlflow-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mlflow
-      MYSQL_USER: mlflow
-      MYSQL_PASSWORD: mlflow
+  fastapi:
+    build: ./fastapi_app
+    container_name: fastapi_app
+    env_file: .env
     ports:
-      - "3307:3306"
+      - "8000:8000"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./data:/data
+    depends_on:
+      - mysql
+      - minio
     networks:
-      - mlflow-net
+      - app-net
 
+  jupyter:
+    build: ./jupyter_app
+    container_name: jupyter_app
+    env_file: .env
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/data
+      - ./scripts:/scripts
+      - ./jupyter_app/notebooks:/home/jovyan/work
+    command: start-notebook.sh --NotebookApp.token=''
+    depends_on:
+      - mysql
+      - minio
+      - mlflow
+    networks:
+      - app-net
+    
   minio:
     image: minio/minio
-    container_name: mlflow-minio
-    command: server /data --console-address ":9001"
+    container_name: minio
     environment:
-      MINIO_ROOT_USER: minio
-      MINIO_ROOT_PASSWORD: minio123
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     ports:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - minio_data:/data
+      - minio-data:/data
+    command: server /data --console-address ":9001"
     networks:
-      - mlflow-net
-
-  minio-client:
+      - app-net
+  
+  minio-init:
     image: minio/mc
-    container_name: mlflow-minio-client
+    container_name: minio_init
     depends_on:
       - minio
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      MLFLOW_ARTIFACT_BUCKET: ${MLFLOW_ARTIFACT_BUCKET}
     entrypoint: >
-      /bin/sh -c "
-      sleep 5;
-      mc alias set myminio http://minio:9000 minio minio123;
-      mc mb -p myminio/mlflow;
-      exit 0;
+      sh -c "
+      sleep 10 &&
+      mc alias set local http://minio:9000 $MINIO_ROOT_USER $MINIO_ROOT_PASSWORD &&
+      mc mb local/$MLFLOW_ARTIFACT_BUCKET || echo 'Bucket já existe' &&
+      echo 'Bucket $MLFLOW_ARTIFACT_BUCKET pronto no MinIO.'
       "
     networks:
-      - mlflow-net
+      - app-net
+
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "13308:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-net
 
   mlflow:
-    image: ghcr.io/mlflow/mlflow:latest
-    container_name: mlflow-server
+    build: ./mlflow_app
+    container_name: mlflow
+    environment:
+      MLFLOW_S3_ENDPOINT_URL: ${MLFLOW_MINIO_ENDPOINT_URL}
+      MINIO_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY_ID}
+      MINIO_SECRET_ACCESS_KEY: ${MINIO_SECRET_ACCESS_KEY}
+      BACKEND_URI: ${MLFLOW_BACKEND_URI}
+    command: >
+      mlflow server
+      --backend-store-uri ${MLFLOW_BACKEND_URI}
+      --default-artifact-root s3://${MLFLOW_ARTIFACT_BUCKET}/
+      --host 0.0.0.0
+      --port 5000
     depends_on:
       - mysql
       - minio
-    environment:
-      BACKEND_STORE_URI: mysql+pymysql://mlflow:mlflow@mysql:3306/mlflow
-      ARTIFACT_ROOT: s3://mlflow
-      AWS_ACCESS_KEY_ID: minio
-      AWS_SECRET_ACCESS_KEY: minio123
-      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
-    command: >
-      mlflow server
-      --backend-store-uri ${BACKEND_STORE_URI}
-      --default-artifact-root ${ARTIFACT_ROOT}
-      --host 0.0.0.0
-      --port 5000
     ports:
       - "5000:5000"
     networks:
-      - mlflow-net
+      - app-net
+    
 
 networks:
-  mlflow-net:
+  app-net:
+    driver: bridge
 
 volumes:
-  mysql_data:
-  minio_data:
+  mysql-data:
+  minio-data:
