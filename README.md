@@ -15,6 +15,8 @@
 
 Projeto de Machine Learning para previsão de umidade relativa do ar utilizando dados meteorológicos do INMET (Instituto Nacional de Meteorologia). O projeto utiliza Random Forest para modelagem e MLflow para tracking de experimentos, com infraestrutura containerizada via Docker Compose.
 
+Link para relatorio do projeto: https://docs.google.com/document/d/1M3rZeZRQC6cAD_yeA4_41MD39yDMkuneJI6vc8n9xCY/edit?usp=sharing
+
 ## 📋 Índice
 
 - [Equipe](#-equipe)
