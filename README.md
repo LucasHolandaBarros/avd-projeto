@@ -10,7 +10,7 @@
 <tr>
     <td align="center" width="150px">
         <a href="https://github.com/LucasHolandaBarros?tab=overview&from=2025-11-01&to=2025-11-30">
-            <img src="https://avatars.githubusercontent.com/u/142419627?v=4" width="115px" style="border-radius: 50%;" alt=""/>
+            <img src="https://avatars.githubusercontent.com/u/142419627?v=4" width="115px" style="border-radius: 50%;" alt="Lucas de Holanda"/>
             <br />
             <sub><b>Lucas de Holanda</b></sub>
         </a>
@@ -94,6 +94,9 @@ O projeto utiliza Docker Compose para orquestrar os seguintes serviços:
 - **Jupyter**: Ambiente de análise, limpeza e modelagem preditiva
 - **MLflow**: Registro e versionamento dos modelos de ML
 - **MySQL**: Banco de dados para metadados do MLflow
+
+<img width="1657" height="610" alt="image" src="https://github.com/user-attachments/assets/6f3fb23c-2a5d-468f-9b5e-76d694e90580" />
+
 
 ### Fluxo do Pipeline
 
