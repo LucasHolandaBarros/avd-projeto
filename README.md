@@ -30,10 +30,10 @@
         </a>
     </td>
     <td align="center" width="150px">
-        <a href="">
-            <img src="" width="115px" style="border-radius: 50%;" alt=""/>
+        <a href="https://github.com/Art-2005">
+            <img src="https://github.com/Art-2005.png" width="115px" style="border-radius: 50%;" alt=""/>
             <br />
-            <sub><b></b></sub>    
+            <sub><b>Arthur Vinícius</b></sub>    
         </a>
     </td>
         <td align="center" width="150px">
