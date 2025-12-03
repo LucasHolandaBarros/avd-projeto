@@ -6,10 +6,54 @@
 
 ## 👥 Equipe
 
-<!-- ADICIONE AQUI OS NOMES E USUÁRIOS DO GITHUB DOS MEMBROS DO GRUPO -->
-<!-- Exemplo: -->
-<!-- - Nome Completo (@usuario_github) -->
-<!-- - Nome Completo (@usuario_github) -->
+<table align="center">
+<tr>
+    <td align="center" width="150px">
+        <a href="https://github.com/LucasHolandaBarros?tab=overview&from=2025-11-01&to=2025-11-30">
+            <img src="https://avatars.githubusercontent.com/u/142419627?v=4" width="115px" style="border-radius: 50%;" alt=""/>
+            <br />
+            <sub><b>Lucas de Holanda</b></sub>
+        </a>
+    </td>
+    <td align="center" width="150px">
+        <a href="">
+            <img src="" width="115px" style="border-radius: 50%;" alt=""/>
+            <br />
+            <sub><b></b></sub>
+        </a>
+    </td>
+    <td align="center" width="150px">
+        <a href="https://github.com/Breno-Lira">
+            <img src="https://github.com/Breno-Lira.png" width="115px" style="border-radius: 50%;" alt="Breno Lira"/>
+            <br />
+            <sub><b>Breno Lira</b></sub>
+        </a>
+    </td>
+    <td align="center" width="150px">
+        <a href="">
+            <img src="" width="115px" style="border-radius: 50%;" alt=""/>
+            <br />
+            <sub><b></b></sub>    
+        </a>
+    </td>
+        <td align="center" width="150px">
+        <a href="">
+            <img src="" width="115px" style="border-radius: 50%;" alt=""/>
+            <br />
+            <sub><b></b></sub>
+        </a>
+    </td>
+    <td align="center" width="150px">
+        <a href="">
+            <img src="" width="115px" style="border-radius: 50%;" alt=""/>
+            <br />
+            <sub><b></b></sub>
+        </a>
+    </td>
+</tr>
+</table>
+
+<br />
 
 ---
 
