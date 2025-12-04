@@ -37,17 +37,17 @@
         </a>
     </td>
         <td align="center" width="150px">
-        <a href="">
-            <img src="" width="115px" style="border-radius: 50%;" alt=""/>
+        <a href="https://github.com/cardozoguilherme">
+            <img src="https://avatars.githubusercontent.com/u/132563707?v=4" width="115px" style="border-radius: 50%;" alt=""/>
             <br />
-            <sub><b></b></sub>
+            <sub><b>Guilherme Cardozo</b></sub>
         </a>
     </td>
     <td align="center" width="150px">
-        <a href="">
-            <img src="" width="115px" style="border-radius: 50%;" alt=""/>
+        <a href="https://github.com/AndG087">
+            <img src="https://avatars.githubusercontent.com/u/135125674?v=4" width="115px" style="border-radius: 50%;" alt=""/>
             <br />
-            <sub><b></b></sub>
+            <sub><b>Anderson Gomes</b></sub>
         </a>
     </td>
 </tr>
